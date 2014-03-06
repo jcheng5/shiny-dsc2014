@@ -27,6 +27,14 @@ Source: [github.com/jcheng5/kmeans](https://github.com/jcheng5/kmeans)
 
 Run: `shiny::runGitHub("kmeans", "jcheng5")`
 
+__Demos in this deck require Shiny 0.9.0 or later.__ You can install the newest Shiny versions directly from GitHub with the following R code:
+
+```r
+if (!require("devtools"))
+  install.packages("devtools")
+devtools::install_github("shiny", "rstudio")
+```
+
 ## What's new
 
 - RStudio integration
@@ -37,7 +45,7 @@ Run: `shiny::runGitHub("kmeans", "jcheng5")`
 - Built-in support for [Selectize](http://brianreavis.github.io/selectize.js/), [Datatables](https://datatables.net/), [MathJax](http://www.mathjax.org/), and [Font Awesome](http://fortawesome.github.io/Font-Awesome/)
 - New deployment options: Shiny Server Pro (on-premises) and ShinyApps.io (cloud hosting)
 
-## Demo 1: kmeans (reprised) and ikmeans
+## Demo 1: kmeans (reprised)
 
 Demonstrates:
 
@@ -65,6 +73,13 @@ Demonstrates:
 ## Demo 3: Super Zips
 
 Inspired by a Washington Post [interactive feature](http://www.washingtonpost.com/sf/local/2013/11/09/washington-a-world-apart/) on the subject
+
+Run:
+
+```r
+devtools::install_github("leaflet-shiny", "jcheng5", ref="wip")
+shiny::runGitHub("superzip", "jcheng5", ref="march2014")
+```
 
 Demonstrates:
 
