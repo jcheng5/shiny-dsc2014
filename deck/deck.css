@@ -1,0 +1,8 @@
+article img {
+  max-width: 100%;
+  max-height: 500px;
+}
+
+article li {
+  font-size: 30px
+}
