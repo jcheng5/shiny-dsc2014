@@ -77,8 +77,8 @@ Inspired by a Washington Post [interactive feature](http://www.washingtonpost.co
 Run:
 
 ```r
-devtools::install_github("leaflet-shiny", "jcheng5", ref="wip")
-shiny::runGitHub("superzip", "jcheng5", ref="march2014")
+devtools::install_github("leaflet-shiny", "jcheng5")
+shiny::runGitHub("superzip", "jcheng5")
 ```
 
 Demonstrates:
