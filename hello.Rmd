@@ -1,0 +1,47 @@
+---
+title: "Hello World"
+author: "Joe Cheng <joe@rstudio.com>"
+date: "June 23, 2014"
+output: html_document
+runtime: shiny
+---
+
+This is an R Markdown file.
+
+```{r}
+library(leaflet)
+library(maps)
+library(RColorBrewer)
+
+cat("Got here 1\n", file=stderr())
+session$onFlushed(function() {
+  cat("Got here 2\n", file=stderr())
+})
+map <- createLeafletMap(session, "map", "100%", 500,
+  # By default OpenStreetMap tiles are used; we want nothing in this case
+  initialTileLayer = NULL,
+  initialTileLayerAttribution = NULL,
+  options=list(
+    center = c(40, -98.85),
+    zoom = 4,
+    maxBounds = list(list(17, -180), list(59, 180))
+  )
+)
+map
+
+# TODO: Why is this necessary??
+session$onFlushed(function() {
+  states <- map("state", plot=FALSE, fill=TRUE)
+  map$addPolygon(states$y, states$x, states$names,
+    lapply(brewer.pal(9, "Blues"), function(x) {
+      list(fillColor = x)
+    }),
+    list(fill=TRUE, fillOpacity=1, 
+      stroke=TRUE, opacity=1, color="white", weight=1
+    )
+  )
+})
+```
+```{r}
+
+```

@@ -1,0 +1,93 @@
+---
+title: "scratch"
+author: "Joe Cheng <joe@rstudio.com>"
+date: "June 27, 2014"
+output: html_document
+---
+
+
+
+# Reactivity in Shiny
+
+The `input` object presents user input as *reactive values*.
+```{r eval=FALSE}
+input$n # read
+```
+
+The `reactive()` function is used to define *reactive expressions*: calculated values based on user input.
+```{r eval=FALSE}
+randomData <- reactive( runif(input$n) ) # define
+randomData() # read
+```
+`renderText`, `renderPlot`, and other `render`-prefix methods are used to create outputs.
+```{r eval=FALSE}
+output$baz <- renderPlot( hist(randomData()) )
+```
+
+
+## Foo
+
+It depends on who you ask.
+
+Changing inputs can trigger *recalculations* and *side effects*.
+
+The traditional solution for interactivity is callback oriented programming.
+
+
+updatePlot <- function() {
+  selectedData <- iris[,c(input$x, input$y)]
+  clusters <- kmeans(selectedData, input$clusters)
+  par(mar = c(5.1, 4.1, 0, 1))
+  plot(selectedData,
+       col = clusters$cluster,
+       pch = 20, cex = 3)
+  points(clusters$centers, pch = 4, cex = 4, lwd = 4)
+}
+
+input$onChange("x", function(value) {
+  updatePlot()
+})
+
+input$onChange("y", function(value) {
+  updatePlot()
+})
+
+input$onChange("clusters", function(value) {
+  updatePlot()
+})
+
+
+selectedData <- reactive({
+  iris[,c(input$x, input$y)]
+})
+clusters <- reactive({
+  kmeans(selectedData(), input$clusters)
+})
+output$plot <- renderPlot({
+  par(mar = c(5.1, 4.1, 0, 1))
+  plot(selectedData,
+       col = clusters$cluster,
+       pch = 20, cex = 3)
+  points(clusters$centers, pch = 4, cex = 4, lwd = 4)
+})
+
+
+
+
+
+```{r echo=FALSE,results='hold'}
+flowLayout(
+  numericInput('degrees', 'Angle (degrees)', 90),
+  numericInput('radius', 'Radius', 3)
+)
+```
+```{r}
+radians <- reactive( input$degrees * pi / 180 )
+```
+
+Angle (radians): `r renderText(radians())`
+
+```{r}
+arcLength <- reactive( radians() * input$radius )
+```
+Arc length: `r renderText(arcLength())`
