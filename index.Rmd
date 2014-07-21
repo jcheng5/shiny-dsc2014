@@ -247,7 +247,7 @@ Nested reactive expressions is almost always a sign that you're doing it wrong. 
 reactiveFileReader(500, session, "mtcars.csv", read.csv) %>%
 #</b>
   ggvis(~wt, ~mpg) %>%
-  layer_smooths(span = 1) %>%
+  layer_points() %>%
   layer_smooths(span = 0.3, stroke := "red")
 ```
 
